@@ -8,8 +8,38 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
+type Admin struct {
+	AdminID  int32
+	Username string
+	Password string
+}
+
+type Event struct {
+	EventID   int32
+	Name      string
+	Venue     string
+	StartDate pgtype.Timestamp
+	EndDate   pgtype.Timestamp
+	Slots     int32
+}
+
+type Registration struct {
+	RegistrationID int32
+	UserID         string
+	EventID        int32
+	RegisteredAt   pgtype.Timestamp
+}
+
 type Test struct {
 	ID   int64
 	Name string
 	Bio  pgtype.Text
+}
+
+type User struct {
+	UserID   string
+	Password string
+	Name     string
+	Email    string
+	Branch   string
 }

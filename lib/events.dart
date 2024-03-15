@@ -17,32 +17,32 @@ class Event {
 }
 
 class EventsPage extends StatelessWidget {
-  final List<Event> events = [
-    const Event(
+  final List<Event> events = const [
+    Event(
       name: 'Annual Science Fair',
       date: 'March 15, 2024',
       venue: 'Auditorium',
       imagePath: 'assets/images/science_fair.jpg',
     ),
-    const Event(
+    Event(
       name: 'Football Championship',
       date: 'March 20, 2024',
       venue: 'Outdoor Stadium',
       imagePath: 'assets/images/football_championship.jpg',
     ),
-    const Event(
+    Event(
       name: 'Dance Competition',
       date: 'April 5, 2024',
       venue: 'Dance Hall',
       imagePath: 'assets/images/dance_competition.jpg',
     ),
-    const Event(
+    Event(
       name: 'Singing Contest',
       date: 'April 10, 2024',
       venue: 'Auditorium',
       imagePath: 'assets/images/singing_contest.jpg',
     ),
-    const Event(
+    Event(
       name: 'Art Exhibition',
       date: 'April 20, 2024',
       venue: 'Art Gallery',
@@ -50,6 +50,8 @@ class EventsPage extends StatelessWidget {
     ),
     // Add more events as needed
   ];
+
+  const EventsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +135,7 @@ class EventsPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => RegistrationPage()),
+                    MaterialPageRoute(builder: (context) => const RegistrationPage()),
                   );
                 },
                 style: ButtonStyle(
@@ -157,7 +159,7 @@ class EventsPage extends StatelessWidget {
 }
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: EventsPage(),
   ));
 }

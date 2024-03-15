@@ -1,28 +1,41 @@
 package service
 
 import (
-	"database/sql"
-	"log"
+	"context"
 
-	"github.com/yourusername/yourapp/repo"
+	"github.com/jackc/pgx/v5/pgtype"
+	db "github.com/pavani2564/CollegeConnect/backend/repo"
 )
 
-// CreateUser creates a new user in the database
-func CreateUser(db *sql.DB, username, password string, isAdmin bool) error {
-	var isAdminInt int
-	if isAdmin {
-		isAdminInt = 1
-	} else {
-		isAdminInt = 0
-	}
-
-	_, err := db.Exec("INSERT INTO users (username, password, is_admin) VALUES (?, ?, ?)", username, password, isAdminInt)
-	return err
+type TestService interface {
+	GetHello() string
+	CreateTest() map[string]bool
 }
 
-// MigrateTables migrates the database tables
-func MigrateTables(db *sql.DB) {
-	if err := repo.Migrate(db); err != nil {
-		log.Fatalf("Error migrating tables: %v", err)
+type Services struct {
+	ctx context.Context
+	DB  *db.Queries
+}
+
+func NewService(ctx context.Context, DB *db.Queries) *Services {
+	return &Services{
+		ctx,
+		DB,
+	}
+}
+
+func (s *Services) GetHello() string {
+	return "Hello, World!"
+}
+
+func (s *Services) CreateTest() map[string]bool {
+	test := db.CreateTestParams{
+		Name: "test",
+		Bio:  pgtype.Text{String: "I am test bio", Valid: true},
+	}
+	s.DB.CreateTest(s.ctx, test)
+
+	return map[string]bool{
+		"Success": true,
 	}
 }

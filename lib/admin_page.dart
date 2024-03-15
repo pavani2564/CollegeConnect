@@ -1,9 +1,8 @@
-// admin_page.dart
-
 import 'package:flutter/material.dart';
-import 'add_event.dart';
 
 class AdminPage extends StatefulWidget {
+  const AdminPage({Key? key});
+
   @override
   _AdminPageState createState() => _AdminPageState();
 }
@@ -16,7 +15,7 @@ class _AdminPageState extends State<AdminPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Page'),
+        title: const Text('Admin Page'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,42 +54,158 @@ class _AdminPageState extends State<AdminPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ElevatedButton(
-                onPressed: () async {
-                  // Navigate to AddEventPage and wait for the result
-                  final result = await Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => AddEventPage()),
-                  );
+              Column(
+                children: [
+                  IconButton(
+                    onPressed: () async {
+                      final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const AddEventPage()),
+                      );
 
-                  // Check if the result is not null (i.e., user added an event)
-                  if (result != null) {
-                    // Update the events list with the new event
-                    setState(() {
-                      events.insert(0, result); // Insert at the beginning of the list
-                      selectedEvents.insert(0, false); // Initialize selection state
-                    });
-                  }
-                },
-                child: Text('Add Event'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Delete selected events
-                  setState(() {
-                    for (int i = selectedEvents.length - 1; i >= 0; i--) {
-                      if (selectedEvents[i]) {
-                        events.removeAt(i);
-                        selectedEvents.removeAt(i);
+                      if (result != null) {
+                        setState(() {
+                          events.insert(0, result);
+                          selectedEvents.insert(0, false);
+                        });
                       }
-                    }
-                  });
-                },
-                child: Text('Delete Event'),
+                    },
+                    icon: const Icon(Icons.add_box), // Change icon to add
+                    tooltip: 'Add', // Add tooltip
+                  ),
+                  const Text('Add'),
+                ],
+              ),
+              Column(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        for (int i = selectedEvents.length - 1; i >= 0; i--) {
+                          if (selectedEvents[i]) {
+                            events.removeAt(i);
+                            selectedEvents.removeAt(i);
+                          }
+                        }
+                      });
+                    },
+                    icon: const Icon(Icons.delete), // Change icon to delete
+                    tooltip: 'Delete', // Add tooltip
+                  ),
+                  const Text('Delete'),
+                ],
               ),
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class AddEventPage extends StatelessWidget {
+  const AddEventPage({Key? key});
+
+  @override
+  Widget build(BuildContext context) {
+    TextEditingController eventNameController = TextEditingController();
+    TextEditingController startDateController = TextEditingController();
+    TextEditingController endDateController = TextEditingController();
+    TextEditingController slotsController = TextEditingController();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Add Event'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextField(
+              controller: eventNameController,
+              decoration: const InputDecoration(labelText: 'Event Name'),
+            ),
+            TextField(
+              controller: startDateController,
+              decoration: const InputDecoration(labelText: 'Start Date'),
+            ),
+            TextField(
+              controller: endDateController,
+              decoration: const InputDecoration(labelText: 'End Date'),
+            ),
+            TextField(
+              controller: slotsController,
+              decoration: const InputDecoration(labelText: 'Number of Slots'),
+              keyboardType: TextInputType.number,
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                // Add event logic
+                String eventName = eventNameController.text;
+                String startDate = startDateController.text;
+                String endDate = endDateController.text;
+                int slots = int.tryParse(slotsController.text) ?? 0;
+
+                // Validate input fields (add your validation logic)
+
+                // Create an event object with the entered details
+                Map<String, dynamic> event = {
+                  'eventName': eventName,
+                  'startDate': startDate,
+                  'endDate': endDate,
+                  'slots': slots,
+                };
+
+                // Pass the event back to the previous screen (AdminPage)
+                Navigator.pop(context, event);
+              },
+              child: const Text('Add Event'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Event Management App',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomePage(), // Define the home route
+        '/admin': (context) => const AdminPage(), // Define the admin route
+      },
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home Page'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/admin'); // Navigate to the admin page
+          },
+          child: const Text('Go to Admin Page'),
+        ),
       ),
     );
   }

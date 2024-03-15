@@ -3,24 +3,28 @@ import 'package:flutter/material.dart';
 import 'admin_page.dart';
 
 class AdminLoginPage extends StatelessWidget {
+  const AdminLoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Admin Login',
-      home: MyHomePage(),
+      home: const MyHomePage(),
       routes: {
-        '/admin': (context) => AdminPage(),
+        '/admin': (context) => const AdminPage(),
       },
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Page'),
+        title: const Text('Admin Page'),
       ),
       body: Center(
         child: Column(
@@ -31,13 +35,13 @@ class MyHomePage extends StatelessWidget {
                 Navigator.pushNamed(context, '/admin');
               },
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0),
                 ),
                 elevation: 0, // No shadow
               ),
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.add_circle, size: 64),
@@ -46,19 +50,19 @@ class MyHomePage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 print('Check Registrations button pressed');
               },
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0),
                 ),
                 elevation: 0, // No shadow
               ),
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.event_note, size: 64),
@@ -75,5 +79,5 @@ class MyHomePage extends StatelessWidget {
 }
 
 void main() {
-  runApp(AdminLoginPage());
+  runApp(const AdminLoginPage());
 }

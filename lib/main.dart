@@ -1,4 +1,3 @@
-//main.dart
 import 'package:flutter/material.dart';
 import 'admin_login.dart';
 import 'events.dart';
@@ -8,7 +7,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,34 +24,52 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+  const MyHomePage({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildLoginForm(
-              context,
-              "Admin Login",
-              Colors.grey[300]!,
-              Icons.admin_panel_settings,
-                  () => _loginAdmin(context),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0, top: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Image.asset(
+                  'assets/vasavi_logo.png', // Updated asset path
+                  width: 50,
+                  height: 50,
+                ),
+              ],
             ),
-            const SizedBox(height: 32),
-            _buildLoginForm(
-              context,
-              "User Login",
-              Colors.grey[300]!,
-              Icons.person,
-                  () => _loginUser(context),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildLoginForm(
+                  context,
+                  "Admin Login",
+                  Colors.grey[300]!,
+                  Icons.admin_panel_settings,
+                      () => _loginAdmin(context),
+                ),
+                const SizedBox(height: 32),
+                _buildLoginForm(
+                  context,
+                  "User Login",
+                  Colors.grey[300]!,
+                  Icons.person,
+                      () => _loginUser(context),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -111,11 +128,11 @@ class MyHomePage extends StatelessWidget {
   }
 
   void _loginAdmin(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => AdminLoginPage()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const AdminLoginPage()));
   }
 
   void _loginUser(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => EventsPage()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const EventsPage()));
   }
 }
 
@@ -124,10 +141,10 @@ class NeumorphicTextField extends StatelessWidget {
   final bool obscureText;
 
   const NeumorphicTextField({
-    super.key,
+    Key? key,
     required this.labelText,
     this.obscureText = false,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -153,11 +170,11 @@ class NeumorphicButton extends StatelessWidget {
   final Color backgroundColor;
 
   const NeumorphicButton({
-    super.key,
+    Key? key,
     required this.onPressed,
     required this.child,
     required this.backgroundColor,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

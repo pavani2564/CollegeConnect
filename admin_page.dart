@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'add_event.dart';
 
 class AdminPage extends StatefulWidget {
+  const AdminPage({super.key});
+
   @override
   _AdminPageState createState() => _AdminPageState();
 }
@@ -16,7 +18,7 @@ class _AdminPageState extends State<AdminPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Page'),
+        title: const Text('Admin Page'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -72,7 +74,7 @@ class _AdminPageState extends State<AdminPage> {
                     });
                   }
                 },
-                child: Text('Add Event'),
+                child: const Text('Add Event'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -86,7 +88,7 @@ class _AdminPageState extends State<AdminPage> {
                     }
                   });
                 },
-                child: Text('Delete Event'),
+                child: const Text('Delete Event'),
               ),
             ],
           ),

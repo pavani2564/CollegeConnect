@@ -1,10 +1,8 @@
 version: "2"
 sql:
   - engine: "postgresql"
-    # queries refers to where our manually created queries located
-    queries: "repo/queries" # will refer a directory
-    # schema refers to where our schema definitions located
-    schema: "repo/migrations" # will refer a directory
+    queries: "repo/queries"
+    schema: "repo/migrations"
     gen:
       go:
         package: "repo"
